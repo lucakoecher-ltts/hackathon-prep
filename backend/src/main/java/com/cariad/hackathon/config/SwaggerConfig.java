@@ -1,0 +1,19 @@
+package com.cariad.hackathon.config;
+
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class SwaggerConfig {
+
+    @Bean
+    public OpenAPI motionServiceOpenAPI() {
+        return new OpenAPI()
+                .info(new Info()
+                        .title("Motion Service API")
+                        .description("API for managing motion data")
+                        .version("1.0.0"));
+    }
+}
