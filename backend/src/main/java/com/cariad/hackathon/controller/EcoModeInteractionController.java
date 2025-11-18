@@ -13,10 +13,17 @@ public class EcoModeInteractionController {
 
     private EcoModeService ecoModeService;
 
-    @PostMapping("/activate")
+    @PutMapping("/activate/{vehicleId}")
     @Operation(summary = "Activate eco mode")
-    public ResponseEntity<String> activateEcoMode() {
-        ecoModeService.activateEcoMode();
+    public ResponseEntity<String> activateEcoMode(@PathVariable String vehicleId) {
+        ecoModeService.activateEcoMode(vehicleId);
         return ResponseEntity.ok("Eco mode activated - Power limit set to 50%");
+    }
+
+    @PutMapping("/deactivate/{vehicleId}")
+    @Operation(summary = "Deactivate eco mode")
+    public ResponseEntity<String> deactivateEcoMode(@PathVariable String vehicleId) {
+        ecoModeService.deactivateEcoMode(vehicleId);
+        return ResponseEntity.ok("Eco mode deactivated - Power limit restored to original");
     }
 }
