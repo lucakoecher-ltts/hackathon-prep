@@ -17,21 +17,23 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 @EntityListeners(AuditingEntityListener.class)
-public class VehicleStatus {
-
+public class VehicleEcoModeHistory {
 
     @Id
     @SequenceGenerator(
-            name = "vehicle_performance_id_sequence",
-            sequenceName = "vehicle_performance_id_sequence"
+            name = "vehicle_eco_mode_history_id_sequence",
+            sequenceName = "vehicle_eco_mode_history_id_sequence"
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "vehicle_performance_id_sequence"
+            generator = "vehicle_eco_mode_history_id_sequence"
     )
     private Long id;
-
-    @NotBlank
+    
+    @ManyToOne
+    @JoinColumn(name = "vin")
+    private Vehicle vehicle;
+    
     @Max(value = 100, message = "Power higher limit is restricted to 100%")
     @Min(value = 0, message = "Power higher limit is restricted to 100%")
     private Integer powerLimit;
