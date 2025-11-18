@@ -3,7 +3,7 @@ With this project the user can activate the ECO Mode of a vehicle.
 
 ## Architectural Overview
 Here you can find a overview of the Architecture in use.
-![Architecture Diagram](../hackathon-prep/Documentation/architecture.svg)
+![Architecture Diagram](/Documentation/architecture.svg)
 
 ## Detailed Worklfow Description
 When the user selects the Eco Mode in his Vehicle the Power Limit will be set to 50%. By de activating the Eco Mode, the Power Limit will be raised to 100% again.
