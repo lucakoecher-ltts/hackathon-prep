@@ -11,20 +11,46 @@ input {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 200px;
+  width: 300px;
+}
+
+input.error {
+  border-color: #dc3545;
+}
+
+.button-group {
+  margin: 15px 0;
 }
 
 button {
   padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  margin-right: 10px;
 }
 
-button:hover {
-  background-color: #0056b3;
+button:first-child {
+  background-color: #28a745;
+  color: white;
+}
+
+button:first-child:hover {
+  background-color: #218838;
+}
+
+button:last-child {
+  background-color: #dc3545;
+  color: white;
+}
+
+button:last-child:hover {
+  background-color: #c82333;
+}
+
+button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
 }
 
 table {
@@ -44,6 +70,25 @@ th {
 }
 
 .error {
-  color: red;
+  color: #dc3545;
   font-size: 12px;
+  margin-top: 5px;
+}
+
+.success {
+  color: #28a745;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 4px;
+}
+
+.error {
+  color: #721c24;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
 }

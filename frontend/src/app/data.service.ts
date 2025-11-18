@@ -1,41 +1,57 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 
-export interface DataItem {
-  id: number;
-  name: string;
+export interface VehicleItem {
+  vehicleId: string;
+  status: string;
+  timestamp?: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  private apiUrl = 'https://jsonplaceholder.typicode.com/users';
-  private data: DataItem[] = [];
+  private baseUrl = 'http://localhost:8080/api/v1/eco-mode';
+  private data: VehicleItem[] = [];
 
-  async fetchData(): Promise<DataItem[]> {
+  async activateVehicle(vehicleId: string): Promise<any> {
     try {
-      const response = await axios.get(this.apiUrl);
-      this.data = response.data.map((user: any) => ({
-        id: user.id,
-        name: user.name
-      }));
-      return this.data;
+      const response = await axios.put(`${this.baseUrl}/activate/${vehicleId}`);
+      this.updateLocalData(vehicleId, 'ACTIVE');
+      return response.data;
     } catch (error) {
-      console.error('Error fetching data:', error);
-      return [];
+      console.error('Error activating vehicle:', error);
+      throw error;
     }
   }
 
-  addItem(name: string): void {
-    const newItem: DataItem = {
-      id: this.data.length + 1,
-      name: name
-    };
-    this.data.push(newItem);
+  async deactivateVehicle(vehicleId: string): Promise<any> {
+    try {
+      const response = await axios.put(`${this.baseUrl}/deactivate/${vehicleId}`);
+      this.updateLocalData(vehicleId, 'INACTIVE');
+      return response.data;
+    } catch (error) {
+      console.error('Error deactivating vehicle:', error);
+      throw error;
+    }
   }
 
-  getData(): DataItem[] {
+  private updateLocalData(vehicleId: string, status: string): void {
+    const existingIndex = this.data.findIndex(item => item.vehicleId === vehicleId);
+    const newItem: VehicleItem = {
+      vehicleId,
+      status,
+      timestamp: new Date().toISOString()
+    };
+    
+    if (existingIndex >= 0) {
+      this.data[existingIndex] = newItem;
+    } else {
+      this.data.push(newItem);
+    }
+  }
+
+  getData(): VehicleItem[] {
     return this.data;
   }
 }
